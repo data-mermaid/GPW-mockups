@@ -1,14 +1,19 @@
-maptilersdk.config.apiKey = '9WiUF7l7DGOeE4AbmmEC';
-
-const map = new maptilersdk.Map({
+const map = new maplibregl.Map({
   container: 'map',
-  style: maptilersdk.MapStyle.SATELLITE,
+  style: {
+    version: 8,
+    sources: {
+      satellite: {
+        type: 'raster',
+        tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+        tileSize: 256,
+        attribution: 'Tiles &copy; Esri &mdash; Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+      },
+    },
+    layers: [{ id: 'satellite', type: 'raster', source: 'satellite' }],
+  },
   center: [178.065, -18.142],
   zoom: 8.5,
-  navigationControl: false,
-  geolocateControl: false,
-  terrainControl: false,
-  scaleControl: false,
   maxPitch: 0,
   pitchWithRotate: false,
   touchPitch: false,
@@ -360,10 +365,13 @@ class GeoLookupControl {
     }
 
     try {
-      const res = await fetch(`https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json?key=9WiUF7l7DGOeE4AbmmEC`);
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`,
+        { headers: { 'Accept-Language': 'en' } }
+      );
       const data = await res.json();
-      if (data.features?.length) {
-        this._map.flyTo({ center: data.features[0].center, zoom: 8 });
+      if (data.length) {
+        this._map.flyTo({ center: [parseFloat(data[0].lon), parseFloat(data[0].lat)], zoom: 8 });
         this._hide();
       } else {
         errorEl.textContent = 'No results found.';
@@ -376,8 +384,8 @@ class GeoLookupControl {
 
 map.on('load', () => {
   map.addControl(new GeoLookupControl(), 'bottom-right');
-  map.addControl(new maptilersdk.GeolocateControl(), 'bottom-right');
-  map.addControl(new maptilersdk.NavigationControl({ showCompass: false }), 'bottom-right');
+  map.addControl(new maplibregl.GeolocateControl(), 'bottom-right');
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
   updateScaleBar();
 });
 
