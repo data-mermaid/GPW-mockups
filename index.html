@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPW Mockup</title>
+  <link rel="stylesheet" href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <!-- Top bar -->
+  <div id="topbar">
+    <div id="logo-placeholder">GPW</div>
+    <div id="region-bar">
+      <button id="bc-uplevel" class="bc-btn" data-tooltip="Go up one level" data-tooltip-placement="bottom">
+        <span class="material-icons" style="transform:rotate(90deg)">subdirectory_arrow_left</span>
+      </button>
+      <div id="bc-control">
+        <div id="bc-display-wrap">
+          <div id="bc-path"></div>
+          <input id="bc-search" type="text" placeholder="Search countries &amp; regions…" autocomplete="off" />
+        </div>
+        <button id="bc-chevron" class="bc-btn bc-right-btn" data-tooltip="Select region" data-tooltip-placement="bottom">
+          <span class="material-icons">expand_more</span>
+        </button>
+        <ul id="bc-dropdown" class="bc-dropdown"></ul>
+      </div>
+      <div id="bc-divider"></div>
+      <div id="bc-year">
+        <span id="bc-year-display">2025</span>
+        <button id="bc-year-chevron" class="bc-btn bc-right-btn" data-tooltip="Select year" data-tooltip-placement="bottom">
+          <span class="material-icons">expand_more</span>
+        </button>
+        <ul id="bc-year-dropdown" class="bc-dropdown">
+          <li class="bc-option">2000</li>
+          <li class="bc-option">2005</li>
+          <li class="bc-option">2015</li>
+          <li class="bc-option">2020</li>
+          <li class="bc-option">2025</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panels -->
+  <div class="panel" id="panel-left">
+    <div class="panel-content panel-content--image">
+      <img src="panel1.png" alt="Panel 1 content" />
+    </div>
+  </div>
+
+  <div class="panel" id="panel-bottom">
+    <div class="panel-content panel-content--image">
+      <img src="panel2.png" alt="Panel 2 content" />
+    </div>
+  </div>
+
+  <!-- Left sidebar -->
+  <div id="sidebar">
+    <button class="sidebar-btn" id="toggle-bottom" data-tooltip="Graphs" data-tooltip-placement="right">
+      <span class="material-icons">bar_chart</span>
+    </button>
+    <button class="sidebar-btn" id="toggle-left" data-tooltip="Layers" data-tooltip-placement="right">
+      <span class="material-icons">layers</span>
+    </button>
+    <div id="sidebar-footer">
+      <button class="sidebar-btn" id="btn-share" data-tooltip="Share" data-tooltip-placement="right">
+        <span class="material-icons">share</span>
+      </button>
+      <button class="sidebar-btn" id="hamburger" data-tooltip="Menu" data-tooltip-placement="right" aria-expanded="false">
+        <span class="material-icons">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hamburger dropdown -->
+  <ul id="nav-dropdown">
+    <li><a href="#">Science and methods</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+
+  <!-- Scale bar + coordinates -->
+  <div id="map-info">
+    <div id="scale-bar"><span id="scale-label"></span></div>
+    <div id="coords">—</div>
+  </div>
+
+  <!-- Material Icons (Google Fonts) -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
