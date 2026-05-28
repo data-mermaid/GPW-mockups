@@ -1,3 +1,5 @@
+const MOBILE_BP = 400; // change this value to adjust the mobile breakpoint
+
 const map = new maplibregl.Map({
   container: 'map',
   style: {
@@ -18,7 +20,10 @@ const map = new maplibregl.Map({
   pitchWithRotate: false,
   touchPitch: false,
   dragRotate: false,
+  attributionControl: false,
 });
+
+map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
 
 map.touchZoomRotate.disableRotation();
 
@@ -32,8 +37,14 @@ const panels = [
 
 function updatePanel2Position() {
   const p1Hidden = document.getElementById('panel-left').classList.contains('hidden');
-  document.getElementById('panel-bottom').style.left = p1Hidden ? '56px' : '324px';
+  if (window.innerWidth <= MOBILE_BP) {
+    document.getElementById('panel-bottom').style.left = '';
+  } else {
+    document.getElementById('panel-bottom').style.left = p1Hidden ? '56px' : '324px';
+  }
 }
+
+window.addEventListener('resize', updatePanel2Position);
 
 function showPanel(targetPanelId) {
   panels.forEach(({ panelId, btnId }) => {
@@ -62,80 +73,42 @@ panels.forEach(({ panelId, btnId }) => {
 
 // Region breadcrumb
 
-const regionOptions = [
-  { group: 'Global', label: 'Global' },
-  { group: 'Countries with Coral Reefs', label: 'Australia' },
-  { group: 'Countries with Coral Reefs', label: 'Bahamas' },
-  { group: 'Countries with Coral Reefs', label: 'Barbados' },
-  { group: 'Countries with Coral Reefs', label: 'Belize' },
-  { group: 'Countries with Coral Reefs', label: 'Brazil' },
-  { group: 'Countries with Coral Reefs', label: 'Brunei' },
-  { group: 'Countries with Coral Reefs', label: 'China' },
-  { group: 'Countries with Coral Reefs', label: 'Colombia' },
-  { group: 'Countries with Coral Reefs', label: 'Comoros' },
-  { group: 'Countries with Coral Reefs', label: 'Cook Islands' },
-  { group: 'Countries with Coral Reefs', label: 'Costa Rica' },
-  { group: 'Countries with Coral Reefs', label: 'Cuba' },
-  { group: 'Countries with Coral Reefs', label: 'Djibouti' },
-  { group: 'Countries with Coral Reefs', label: 'Dominican Republic' },
-  { group: 'Countries with Coral Reefs', label: 'Ecuador' },
-  { group: 'Countries with Coral Reefs', label: 'Egypt' },
-  { group: 'Countries with Coral Reefs', label: 'Eritrea' },
-  { group: 'Countries with Coral Reefs', label: 'Federated States of Micronesia' },
-  { group: 'Countries with Coral Reefs', label: 'Fiji' },
-  { group: 'Countries with Coral Reefs', label: 'French Polynesia' },
-  { group: 'Countries with Coral Reefs', label: 'Grenada' },
-  { group: 'Countries with Coral Reefs', label: 'Haiti' },
-  { group: 'Countries with Coral Reefs', label: 'Honduras' },
-  { group: 'Countries with Coral Reefs', label: 'India' },
-  { group: 'Countries with Coral Reefs', label: 'Indonesia' },
-  { group: 'Countries with Coral Reefs', label: 'Israel' },
-  { group: 'Countries with Coral Reefs', label: 'Jamaica' },
-  { group: 'Countries with Coral Reefs', label: 'Japan' },
-  { group: 'Countries with Coral Reefs', label: 'Jordan' },
-  { group: 'Countries with Coral Reefs', label: 'Kenya' },
-  { group: 'Countries with Coral Reefs', label: 'Kiribati' },
-  { group: 'Countries with Coral Reefs', label: 'Madagascar' },
-  { group: 'Countries with Coral Reefs', label: 'Malaysia' },
-  { group: 'Countries with Coral Reefs', label: 'Maldives' },
-  { group: 'Countries with Coral Reefs', label: 'Marshall Islands' },
-  { group: 'Countries with Coral Reefs', label: 'Mauritius' },
-  { group: 'Countries with Coral Reefs', label: 'Mexico' },
-  { group: 'Countries with Coral Reefs', label: 'Mozambique' },
-  { group: 'Countries with Coral Reefs', label: 'Myanmar' },
-  { group: 'Countries with Coral Reefs', label: 'New Caledonia' },
-  { group: 'Countries with Coral Reefs', label: 'Nicaragua' },
-  { group: 'Countries with Coral Reefs', label: 'Niue' },
-  { group: 'Countries with Coral Reefs', label: 'Oman' },
-  { group: 'Countries with Coral Reefs', label: 'Palau' },
-  { group: 'Countries with Coral Reefs', label: 'Panama' },
-  { group: 'Countries with Coral Reefs', label: 'Papua New Guinea' },
-  { group: 'Countries with Coral Reefs', label: 'Philippines' },
-  { group: 'Countries with Coral Reefs', label: 'Samoa' },
-  { group: 'Countries with Coral Reefs', label: 'Saudi Arabia' },
-  { group: 'Countries with Coral Reefs', label: 'Seychelles' },
-  { group: 'Countries with Coral Reefs', label: 'Singapore' },
-  { group: 'Countries with Coral Reefs', label: 'Solomon Islands' },
-  { group: 'Countries with Coral Reefs', label: 'Somalia' },
-  { group: 'Countries with Coral Reefs', label: 'Sri Lanka' },
-  { group: 'Countries with Coral Reefs', label: 'Sudan' },
-  { group: 'Countries with Coral Reefs', label: 'Taiwan' },
-  { group: 'Countries with Coral Reefs', label: 'Tanzania' },
-  { group: 'Countries with Coral Reefs', label: 'Thailand' },
-  { group: 'Countries with Coral Reefs', label: 'Timor-Leste' },
-  { group: 'Countries with Coral Reefs', label: 'Tonga' },
-  { group: 'Countries with Coral Reefs', label: 'Trinidad and Tobago' },
-  { group: 'Countries with Coral Reefs', label: 'Tuvalu' },
-  { group: 'Countries with Coral Reefs', label: 'United States' },
-  { group: 'Countries with Coral Reefs', label: 'Vanuatu' },
-  { group: 'Countries with Coral Reefs', label: 'Venezuela' },
-  { group: 'Countries with Coral Reefs', label: 'Vietnam' },
-  { group: 'Countries with Coral Reefs', label: 'Yemen' },
-  { group: 'Regions with Coral Reefs', label: 'Tropical Atlantic' },
-  { group: 'Regions with Coral Reefs', label: 'Western Indo-Pacific' },
-  { group: 'Regions with Coral Reefs', label: 'Central Indo-Pacific' },
-  { group: 'Regions with Coral Reefs', label: 'Eastern Indo-Pacific' },
-  { group: 'Regions with Coral Reefs', label: 'Tropical Eastern Pacific' },
+const regionData = [
+  {
+    label: 'Tropical Atlantic',
+    countries: [
+      'Bahamas', 'Barbados', 'Belize', 'Brazil', 'Colombia', 'Costa Rica',
+      'Cuba', 'Dominican Republic', 'Grenada', 'Haiti', 'Honduras', 'Jamaica',
+      'Mexico', 'Nicaragua', 'Panama', 'Trinidad and Tobago', 'United States', 'Venezuela',
+    ],
+  },
+  {
+    label: 'Western Indo-Pacific',
+    countries: [
+      'Comoros', 'Djibouti', 'Egypt', 'Eritrea', 'India', 'Israel', 'Jordan',
+      'Kenya', 'Madagascar', 'Maldives', 'Mauritius', 'Mozambique', 'Oman',
+      'Saudi Arabia', 'Seychelles', 'Somalia', 'Sri Lanka', 'Sudan', 'Tanzania', 'Yemen',
+    ],
+  },
+  {
+    label: 'Central Indo-Pacific',
+    countries: [
+      'Australia', 'Brunei', 'China', 'Indonesia', 'Japan', 'Malaysia',
+      'Myanmar', 'Philippines', 'Singapore', 'Taiwan', 'Thailand', 'Timor-Leste', 'Vietnam',
+    ],
+  },
+  {
+    label: 'Eastern Indo-Pacific',
+    countries: [
+      'Cook Islands', 'Federated States of Micronesia', 'Fiji', 'French Polynesia',
+      'Kiribati', 'Marshall Islands', 'New Caledonia', 'Niue', 'Palau',
+      'Papua New Guinea', 'Samoa', 'Solomon Islands', 'Tonga', 'Tuvalu', 'Vanuatu',
+    ],
+  },
+  {
+    label: 'Tropical Eastern Pacific',
+    countries: ['Colombia', 'Costa Rica', 'Ecuador', 'Mexico', 'Panama'],
+  },
 ];
 
 let bcPath = [{ label: 'Global', type: 'global' }];
@@ -157,7 +130,7 @@ function renderBcPath() {
       bcPathEl.appendChild(sep);
     }
     const span = document.createElement('span');
-    span.className = 'bc-seg';
+    span.className = 'bc-seg' + (i > 0 ? ' bc-seg-truncatable' : '');
     span.textContent = seg.label;
     if (i < bcPath.length - 1) {
       span.addEventListener('click', () => setBcPath(bcPath.slice(0, i + 1)));
@@ -192,28 +165,53 @@ function setBcPath(newPath) {
 function renderBcDropdown(filter) {
   bcDropdownEl.innerHTML = '';
   const lc = (filter || '').toLowerCase();
-  let currentGroup = null;
-  regionOptions.forEach(opt => {
-    if (lc && !opt.label.toLowerCase().includes(lc) && !opt.group.toLowerCase().includes(lc)) return;
-    if (opt.group !== currentGroup) {
-      currentGroup = opt.group;
-      const header = document.createElement('li');
-      header.className = 'bc-group-header';
-      header.textContent = currentGroup;
-      bcDropdownEl.appendChild(header);
-    }
+  const currentLabel = bcPath[bcPath.length - 1]?.label;
+
+  if (!lc || 'global'.includes(lc)) {
     const li = document.createElement('li');
-    li.className = 'bc-option' + (opt.label === 'Global' ? ' bc-group-item-global' : '');
-    if (opt.label === bcPath[bcPath.length - 1]?.label) li.classList.add('selected');
-    li.textContent = opt.label;
+    li.className = 'bc-option bc-group-item-global' + (currentLabel === 'Global' ? ' selected' : '');
+    li.textContent = 'Global';
     li.addEventListener('mousedown', (e) => {
       e.preventDefault();
-      setBcPath(opt.label === 'Global'
-        ? [{ label: 'Global', type: 'global' }]
-        : [{ label: 'Global', type: 'global' }, { label: opt.label, type: opt.group === 'Regions with Coral Reefs' ? 'region' : 'country' }]);
+      setBcPath([{ label: 'Global', type: 'global' }]);
       closeBcDropdown();
     });
     bcDropdownEl.appendChild(li);
+  }
+
+  regionData.forEach(item => {
+    const regionMatches = !lc || item.label.toLowerCase().includes(lc);
+    const matchingCountries = regionMatches
+      ? item.countries
+      : item.countries.filter(c => c.toLowerCase().includes(lc));
+    if (!regionMatches && matchingCountries.length === 0) return;
+
+    const header = document.createElement('li');
+    header.className = 'bc-group-header';
+    header.textContent = item.label;
+    bcDropdownEl.appendChild(header);
+
+    const regionLi = document.createElement('li');
+    regionLi.className = 'bc-option bc-option-region' + (currentLabel === item.label ? ' selected' : '');
+    regionLi.textContent = item.label;
+    regionLi.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      setBcPath([{ label: 'Global', type: 'global' }, { label: item.label, type: 'region' }]);
+      closeBcDropdown();
+    });
+    bcDropdownEl.appendChild(regionLi);
+
+    matchingCountries.forEach(country => {
+      const li = document.createElement('li');
+      li.className = 'bc-option bc-option-country' + (currentLabel === country ? ' selected' : '');
+      li.textContent = country;
+      li.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        setBcPath([{ label: 'Global', type: 'global' }, { label: country, type: 'country' }]);
+        closeBcDropdown();
+      });
+      bcDropdownEl.appendChild(li);
+    });
   });
 }
 
@@ -244,24 +242,11 @@ bcUpLevelEl.addEventListener('click', () => {
 
 // Year selector
 
-const yearDisplayEl  = document.getElementById('bc-year-display');
-const yearDropdownEl = document.getElementById('bc-year-dropdown');
-const yearChevronEl  = document.getElementById('bc-year-chevron');
-
-yearDropdownEl.querySelectorAll('.bc-option').forEach(li => {
-  if (li.textContent === '2025') li.classList.add('selected');
-  li.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-    yearDropdownEl.querySelectorAll('.bc-option').forEach(o => o.classList.remove('selected'));
-    li.classList.add('selected');
-    yearDisplayEl.textContent = li.textContent;
-    yearDropdownEl.classList.remove('open');
+document.querySelectorAll('.year-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
   });
-});
-
-yearChevronEl.addEventListener('click', (e) => {
-  e.stopPropagation();
-  yearDropdownEl.classList.toggle('open');
 });
 
 
@@ -269,7 +254,6 @@ yearChevronEl.addEventListener('click', (e) => {
 
 document.addEventListener('click', (e) => {
   if (!bcControlEl.contains(e.target)) closeBcDropdown();
-  if (!document.getElementById('bc-year').contains(e.target)) yearDropdownEl.classList.remove('open');
   if (!document.getElementById('hamburger').contains(e.target) && !document.getElementById('nav-dropdown').contains(e.target)) {
     document.getElementById('nav-dropdown').classList.remove('open');
     document.getElementById('hamburger').setAttribute('aria-expanded', false);

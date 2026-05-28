@@ -11,38 +11,19 @@
 
   <div id="map"></div>
 
-  <!-- Top bar -->
-  <div id="topbar">
-    <div id="logo-placeholder">GPW</div>
-    <div id="region-bar">
-      <button id="bc-uplevel" class="bc-btn" data-tooltip="Go up one level" data-tooltip-placement="bottom">
-        <span class="material-icons" style="transform:rotate(90deg)">subdirectory_arrow_left</span>
-      </button>
-      <div id="bc-control">
-        <div id="bc-display-wrap">
-          <div id="bc-path"></div>
-          <input id="bc-search" type="text" placeholder="Search countries &amp; regions…" autocomplete="off" />
-        </div>
-        <button id="bc-chevron" class="bc-btn bc-right-btn" data-tooltip="Select region" data-tooltip-placement="bottom">
-          <span class="material-icons">expand_more</span>
-        </button>
-        <ul id="bc-dropdown" class="bc-dropdown"></ul>
-      </div>
-      <div id="bc-divider"></div>
-      <div id="bc-year">
-        <span id="bc-year-display">2025</span>
-        <button id="bc-year-chevron" class="bc-btn bc-right-btn" data-tooltip="Select year" data-tooltip-placement="bottom">
-          <span class="material-icons">expand_more</span>
-        </button>
-        <ul id="bc-year-dropdown" class="bc-dropdown">
-          <li class="bc-option">2000</li>
-          <li class="bc-option">2005</li>
-          <li class="bc-option">2015</li>
-          <li class="bc-option">2020</li>
-          <li class="bc-option">2025</li>
-        </ul>
-      </div>
+  <!-- Region selector (always visible, floats above panel-bottom) -->
+  <div id="bc-control">
+    <button id="bc-uplevel" class="bc-btn bc-left-btn" data-tooltip="Go up one level" data-tooltip-placement="bottom">
+      <span class="material-icons" style="transform:rotate(90deg)">subdirectory_arrow_left</span>
+    </button>
+    <div id="bc-display-wrap">
+      <div id="bc-path"></div>
+      <input id="bc-search" type="text" placeholder="Search countries &amp; regions…" autocomplete="off" />
     </div>
+    <button id="bc-chevron" class="bc-btn bc-right-btn" data-tooltip="Select region" data-tooltip-placement="right">
+      <span class="material-icons">expand_more</span>
+    </button>
+    <ul id="bc-dropdown" class="bc-dropdown"></ul>
   </div>
 
   <!-- Panels -->
@@ -60,6 +41,7 @@
 
   <!-- Left sidebar -->
   <div id="sidebar">
+    <div id="logo-placeholder">GPW</div>
     <button class="sidebar-btn" id="toggle-bottom" data-tooltip="Graphs" data-tooltip-placement="right">
       <span class="material-icons">bar_chart</span>
     </button>
@@ -81,6 +63,15 @@
     <li><a href="#">Science and methods</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
+
+  <!-- Year bar -->
+  <div id="year-bar">
+    <button class="year-btn" data-year="2000">2000</button>
+    <button class="year-btn" data-year="2005">2005</button>
+    <button class="year-btn" data-year="2015">2015</button>
+    <button class="year-btn" data-year="2020">2020</button>
+    <button class="year-btn active" data-year="2025">2025</button>
+  </div>
 
   <!-- Scale bar + coordinates -->
   <div id="map-info">

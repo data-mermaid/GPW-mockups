@@ -16,22 +16,7 @@ html, body {
   inset: 0;
 }
 
-/* ── Top bar ─────────────────────────────────────────── */
-
-#topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
-  background: #fff;
-  border-bottom: 1px solid rgba(0,0,0,.1);
-  box-shadow: 0 1px 4px rgba(0,0,0,.1);
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+/* ── Logo ────────────────────────────────────────────── */
 
 #logo-placeholder {
   width: 48px;
@@ -48,27 +33,22 @@ html, body {
   user-select: none;
 }
 
-/* ── Region + year bar ───────────────────────────────── */
+/* ── Region selector ─────────────────────────────────── */
 
-#region-bar {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0 10px;
-  font-size: 14px;
-  font-family: 'Roboto', Arial, sans-serif;
-  user-select: none;
-}
-
-#bc-control,
-#bc-year {
-  position: relative;
+#bc-control {
+  position: fixed;
+  top: 8px;
+  left: 56px;
+  z-index: 20;
   display: flex;
   align-items: stretch;
   background: #fff;
-  border: 1px solid rgba(0,0,0,.23);
+  border: 1px solid #a9a9b3;
   border-radius: 4px;
-  height: 32px;
+  height: 41px;
+  font-size: 14px;
+  font-family: 'Roboto', Arial, sans-serif;
+  user-select: none;
 }
 
 #bc-display-wrap {
@@ -76,6 +56,7 @@ html, body {
   min-width: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 8px;
   overflow: hidden;
 }
@@ -142,30 +123,20 @@ html, body {
 .bc-btn:disabled { opacity: 0.35; cursor: default; }
 .bc-btn .material-icons { font-size: 20px; }
 
-.bc-right-btn {
-  border-left: 1px solid rgba(0,0,0,.15);
-  border-radius: 0 3px 3px 0;
-  padding: 0 6px;
+.bc-left-btn {
+  border-right: 1px solid #a9a9b3;
+  border-radius: 3px 0 0 3px;
+  padding: 4px 8px;
   align-self: stretch;
 }
 
-.bc-right-btn:hover:not(:disabled) { border-radius: 0 3px 3px 0; }
-
-#bc-year-display {
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-  color: #333;
-  font-weight: 500;
-  white-space: nowrap;
+.bc-right-btn {
+  border-left: 1px solid #a9a9b3;
+  border-radius: 0 3px 3px 0;
+  padding: 0 10px;
+  align-self: stretch;
 }
 
-#bc-divider {
-  width: 1px;
-  height: 22px;
-  background: rgba(0,0,0,.15);
-  flex-shrink: 0;
-}
 
 .bc-dropdown {
   display: none;
@@ -184,8 +155,7 @@ html, body {
 
 .bc-dropdown.open { display: block; }
 
-#bc-dropdown      { left: 0; }
-#bc-year-dropdown { right: 0; min-width: 90px; }
+#bc-dropdown { left: 0; }
 
 .bc-group-header {
   padding: 6px 16px 4px;
@@ -208,20 +178,56 @@ html, body {
 }
 
 .bc-option.bc-group-item-global { padding-left: 16px; font-weight: 500; }
+.bc-option.bc-option-region  { padding-left: 16px; font-weight: 500; }
+.bc-option.bc-option-country { padding-left: 28px; }
 .bc-option:hover  { background: #e3f2fd; color: #1976d2; }
 .bc-option.selected { color: #1976d2; font-weight: 500; }
+
+/* ── Year bar ────────────────────────────────────────── */
+
+#year-bar {
+  position: fixed;
+  top: 8px;
+  right: 12px;
+  z-index: 20;
+  background: #c8c8cc;
+  border-radius: 5px;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.year-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-family: 'Roboto', Arial, sans-serif;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: #4181d1;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.year-btn:first-child { border-radius: 4px 4px 0 0; }
+.year-btn:last-child  { border-radius: 0 0 4px 4px; }
+.year-btn.active { background: #174b82; color: #fff; }
+.year-btn:hover:not(.active) { background: #e3f2fd; }
 
 /* ── Panels ──────────────────────────────────────────── */
 
 .panel {
   position: fixed;
-  top: 56px;
   bottom: 8px;
   width: 260px;
   background: #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,.25);
   border-radius: 6px;
-  z-index: 10;
+  z-index: 25;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -241,14 +247,14 @@ html, body {
 .panel-content--image { padding: 0; }
 .panel-content--image img { width: 100%; display: block; }
 
-#panel-left   { left: 56px; }
-#panel-bottom { left: 56px; }
+#panel-left   { top: 57px; left: 56px; }
+#panel-bottom { top: 57px; left: 56px; }
 
 /* ── Left sidebar ────────────────────────────────────── */
 
 #sidebar {
   position: fixed;
-  top: 48px;
+  top: 0;
   left: 0;
   bottom: 0;
   width: 48px;
@@ -433,4 +439,54 @@ html, body {
   padding: 4px 10px;
   border-radius: 4px;
   white-space: nowrap;
+}
+
+/* ── Mobile layout ──────────────────────────────── */
+/* Change 400px below to adjust the mobile breakpoint */
+
+@media (max-width: 400px) {
+
+  /* Breadcrumb: stretch full width */
+  #bc-control {
+    right: 8px;
+  }
+
+  #bc-path {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Truncate the middle/last breadcrumb segment (country or region) */
+  .bc-seg-truncatable {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Year bar: horizontal row below breadcrumb, full width */
+  #year-bar {
+    top: 57px;
+    left: 56px;
+    right: 8px;
+    flex-direction: row;
+  }
+
+  .year-btn {
+    width: auto;
+    flex: 1;
+  }
+
+  .year-btn:first-child { border-radius: 4px 0 0 4px; }
+  .year-btn:last-child  { border-radius: 0 4px 4px 0; }
+
+  /* Panels: full width, top shifted below horizontal year bar */
+  #panel-left,
+  #panel-bottom {
+    left: 56px;
+    right: 8px;
+    width: auto;
+    top: 91px;
+  }
+
 }

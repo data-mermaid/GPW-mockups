@@ -6,7 +6,8 @@
       "Bash(gdalinfo /home/al/www/gpw-mockup/data_aca_extent.tif)",
       "WebFetch(domain:globalpollutionwatch.org)",
       "Bash(curl -s -o /tmp/breadcrumb_mockup.png \"https://www.figma.com/api/mcp/asset/e834c84b-d9d2-4665-b525-6febe7480549\")",
-      "mcp__plugin_figma_figma__get_design_context"
+      "mcp__plugin_figma_figma__get_design_context",
+      "Bash(curl -L -o /tmp/figma_asset.png \"https://www.figma.com/api/mcp/asset/322928b0-fcb1-4a1b-b707-3b50ad92e049\" -w \"\\\\nHTTP Status: %{http_code}\\\\nContent-Type: %{content_type}\\\\n\")"
     ]
   }
 }
