@@ -1,4 +1,4 @@
-const MOBILE_BP = 400; // change this value to adjust the mobile breakpoint
+const MOBILE_BP = 640; // change this value to adjust the mobile breakpoint
 
 const map = new maplibregl.Map({
   container: 'map',

@@ -39,7 +39,7 @@ html, body {
   position: fixed;
   top: 8px;
   left: 56px;
-  z-index: 20;
+  z-index: 30;
   display: flex;
   align-items: stretch;
   background: #fff;
@@ -444,7 +444,7 @@ html, body {
 /* ── Mobile layout ──────────────────────────────── */
 /* Change 400px below to adjust the mobile breakpoint */
 
-@media (max-width: 400px) {
+@media (max-width: 640px) {
 
   /* Breadcrumb: stretch full width */
   #bc-control {
