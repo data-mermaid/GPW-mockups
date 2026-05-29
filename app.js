@@ -40,7 +40,7 @@ function updatePanel2Position() {
   if (window.innerWidth <= MOBILE_BP) {
     document.getElementById('panel-bottom').style.left = '';
   } else {
-    document.getElementById('panel-bottom').style.left = p1Hidden ? '56px' : '324px';
+    document.getElementById('panel-bottom').style.left = p1Hidden ? '56px' : '379px';
   }
 }
 
@@ -143,23 +143,58 @@ function updateBcUplevel() {
   bcUpLevelEl.disabled = bcPath.length <= 1;
 }
 
-let _loadingTimer = null;
-function triggerBcLoading() {
-  const icon = document.querySelector('#toggle-bottom .material-icons');
+const SKELETON_HTML = `<div class="skeleton-wrap">
+  <div class="skeleton-card">
+    <div class="skeleton skeleton-label"></div>
+    <div class="skeleton skeleton-title"></div>
+    <div class="skeleton skeleton-chart"></div>
+    <div class="skeleton-legend">
+      <div class="skeleton skeleton-legend-item"></div>
+      <div class="skeleton skeleton-legend-item"></div>
+      <div class="skeleton skeleton-legend-item"></div>
+    </div>
+  </div>
+  <div class="skeleton-card">
+    <div class="skeleton skeleton-label"></div>
+    <div class="skeleton skeleton-title" style="width:65%"></div>
+    <div class="skeleton skeleton-chart"></div>
+    <div class="skeleton-legend">
+      <div class="skeleton skeleton-legend-item"></div>
+      <div class="skeleton skeleton-legend-item"></div>
+    </div>
+  </div>
+</div>`;
+
+let _lastGraphType = null;
+let _graphsTimer   = null;
+
+function loadGraphs(type) {
+  if (type !== null) _lastGraphType = type;
+
+  const contentEl = document.getElementById('panel-bottom-content');
+  const icon      = document.querySelector('#toggle-bottom .material-icons');
+
+  contentEl.innerHTML = SKELETON_HTML;
   icon.textContent = 'sync';
   icon.classList.add('spinning');
-  clearTimeout(_loadingTimer);
-  _loadingTimer = setTimeout(() => {
+  clearTimeout(_graphsTimer);
+
+  _graphsTimer = setTimeout(() => {
+    if (_lastGraphType) {
+      setPanelBottomGraphs(_lastGraphType);
+    } else {
+      contentEl.innerHTML = '<img src="Wastershed-graphs.png" alt="" style="width:100%;display:block;" />';
+    }
     icon.textContent = 'bar_chart';
     icon.classList.remove('spinning');
-  }, 600);
+  }, 500);
 }
 
 function setBcPath(newPath) {
   bcPath = newPath;
   renderBcPath();
   updateBcUplevel();
-  triggerBcLoading();
+  loadGraphs(null);
 }
 
 function renderBcDropdown(filter) {
@@ -261,10 +296,21 @@ document.addEventListener('click', (e) => {
 });
 
 
-// Map click adds Watershed when at country/region level
+// Map click: add Watershed breadcrumb and show land/water graphs in panel-left
 
-map.on('click', () => {
-  if (bcPath.length === 2) setBcPath([...bcPath, { label: 'Watershed', type: 'watershed' }]);
+map.on('click', (e) => {
+  const oceanFeatures = map.queryRenderedFeatures(e.point, { layers: ['ocean-detect'] });
+  const type  = oceanFeatures.length > 0 ? 'water' : 'land';
+  const label = type === 'water' ? 'Plume' : 'Watershed';
+
+  // Ensure there's a country/region — default to Fiji if only Global is set
+  const base = bcPath.length === 1
+    ? [...bcPath, { label: 'Fiji', type: 'country' }]
+    : bcPath;
+
+  // Set graph type before setBcPath so loadGraphs(null) inside picks it up
+  _lastGraphType = type;
+  setBcPath([...base.slice(0, 2), { label, type: label.toLowerCase() }]);
 });
 
 
@@ -366,7 +412,38 @@ class GeoLookupControl {
   }
 }
 
+// Graph images for panel-left (land vs water click)
+
+const PANEL_BOTTOM_GRAPHS = {
+  land: [
+    'Wastershed-graphs.png',
+  ],
+  water: [
+    'https://www.figma.com/api/mcp/asset/a4d90d78-e146-4536-bc1a-6f8f7ea39d8c',
+  ],
+};
+
+function setPanelBottomGraphs(type) {
+  const el = document.getElementById('panel-bottom-content');
+  el.innerHTML = PANEL_BOTTOM_GRAPHS[type]
+    .map(src => `<img src="${src}" alt="" style="width:100%;display:block;" />`)
+    .join('');
+}
+
+
 map.on('load', () => {
+  // Invisible ocean polygons used only for land/water hit detection
+  map.addSource('ocean', {
+    type: 'geojson',
+    data: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_ocean.geojson',
+  });
+  map.addLayer({
+    id: 'ocean-detect',
+    type: 'fill',
+    source: 'ocean',
+    paint: { 'fill-color': '#0000ff', 'fill-opacity': 0 },
+  });
+
   map.addControl(new GeoLookupControl(), 'bottom-right');
   map.addControl(new maplibregl.GeolocateControl(), 'bottom-right');
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
@@ -458,4 +535,4 @@ document.querySelectorAll('[data-tooltip]').forEach(el => {
 
 renderBcPath();
 updateBcUplevel();
-showPanel('panel-bottom');
+if (window.innerWidth > MOBILE_BP) showPanel('panel-bottom'); else hideAll();
