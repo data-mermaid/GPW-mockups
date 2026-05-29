@@ -60,76 +60,9 @@
 
   <!-- Hamburger dropdown -->
   <ul id="nav-dropdown">
-    <li><a href="#" id="nav-science">Science and methods</a></li>
+    <li><a href="science-and-methods/">Science and methods</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
-
-  <!-- Science & Methods dialog -->
-  <div id="dialog-overlay" class="dialog-hidden" role="presentation">
-    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
-      <div class="dialog-title" id="dialog-title">Science &amp; Methods</div>
-      <div class="dialog-content">
-
-        <h2>Overview</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <h2>Data Sources</h2>
-        <p>The population data used in this platform is derived from the following authoritative sources:</p>
-        <ul>
-          <li><a href="#">Global Human Settlement Layer (GHSL)</a> — European Commission Joint Research Centre</li>
-          <li><a href="#">WorldPop</a> — University of Southampton</li>
-          <li><a href="#">LandScan</a> — Oak Ridge National Laboratory</li>
-          <li><a href="#">GPWv4</a> — NASA Socioeconomic Data and Applications Center (SEDAC)</li>
-          <li>National census data from participating governments, harmonised to 2000–2025</li>
-        </ul>
-        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>
-
-        <h2>Spatial Resolution</h2>
-        <p>All raster products are provided at <strong>30 arc-second (~1 km)</strong> spatial resolution at the equator. Watershed summaries are computed at the HydroSHEDS level-4 basin delineation. Administrative boundaries follow the <a href="#">GADM 4.1</a> dataset.</p>
-
-        <h3>Temporal Coverage</h3>
-        <ul>
-          <li>2000 — baseline census year</li>
-          <li>2005 — interpolated estimate</li>
-          <li>2015 — interpolated estimate</li>
-          <li>2020 — most recent census anchor</li>
-          <li>2025 — modelled projection</li>
-        </ul>
-
-        <h2>Methodology</h2>
-        <p>Population counts are disaggregated from administrative units to grid cells using a dasymetric mapping approach. Land cover data from <a href="#">ESA CCI Land Cover</a> is used as ancillary information to restrict settlement areas. Uninhabited pixels (open water, bare rock, permanent ice) are masked prior to redistribution.</p>
-        <p>Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam.</p>
-
-        <h3>Uncertainty Estimation</h3>
-        <p>Pixel-level uncertainty is quantified using a Monte Carlo framework with 1 000 iterations. The inter-quartile range of the resulting distribution is reported as the uncertainty band for each grid cell and aggregated region. For further detail see:</p>
-        <ul>
-          <li><a href="#">Stevens et al. (2015) — Disaggregating census data for population mapping</a></li>
-          <li><a href="#">Wardrop et al. (2018) — Spatially disaggregated population estimates</a></li>
-          <li><a href="#">Leyk et al. (2019) — The spatial allocation of population</a></li>
-        </ul>
-
-        <h2>Coral Reef Regions</h2>
-        <p>Reef boundaries are derived from the <a href="#">UNEP-WCMC Global Coral Reef Monitoring Network</a> dataset, version 4.1. The five biogeographic regions follow the classification of <a href="#">Spalding et al. (2007)</a> — Marine Ecoregions of the World. Watershed intersections are computed using the <a href="#">HydroSHEDS</a> river basin layer at Pfafstetter level 4.</p>
-
-        <h2>Validation</h2>
-        <p>Modelled population surfaces are validated against independent household survey data from the <a href="#">DHS Program</a> and national population registers where available. Root-mean-square error (RMSE) and mean absolute error (MAE) are reported per region and time step in the supplementary materials.</p>
-        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, ex quam pharetra erat, quis venenatis diam eros in risus. Proin feugiat, leo vel commodo feugiat, pede lacus egestas ligula.</p>
-
-        <h2>Citing This Platform</h2>
-        <p>When using data or maps from this platform in publications, please cite:</p>
-        <ul>
-          <li>Global Population Watch (2025). <em>Population and Coral Reef Exposure Data Platform</em>, version 3.0. Available at: <a href="#">https://gpw.example.org</a></li>
-          <li>The relevant source dataset citation (see Data Sources above)</li>
-        </ul>
-        <p>For questions or collaboration enquiries, please use the <a href="#">Contact</a> page.</p>
-
-      </div>
-      <div class="dialog-actions">
-        <button id="dialog-close" class="dialog-btn-close">Close</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Year bar -->
   <div id="year-bar">

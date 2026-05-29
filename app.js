@@ -409,30 +409,6 @@ map.on('mouseleave', () => {
 });
 
 
-// Science & Methods dialog
-
-const dialogOverlay = document.getElementById('dialog-overlay');
-
-document.getElementById('nav-science').addEventListener('click', (e) => {
-  e.preventDefault();
-  dialogOverlay.classList.remove('dialog-hidden');
-  document.getElementById('nav-dropdown').classList.remove('open');
-  document.getElementById('hamburger').setAttribute('aria-expanded', false);
-});
-
-document.getElementById('dialog-close').addEventListener('click', () => {
-  dialogOverlay.classList.add('dialog-hidden');
-});
-
-dialogOverlay.addEventListener('click', (e) => {
-  if (e.target === dialogOverlay) dialogOverlay.classList.add('dialog-hidden');
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') dialogOverlay.classList.add('dialog-hidden');
-});
-
-
 // Hamburger menu
 
 const hamburger   = document.getElementById('hamburger');
