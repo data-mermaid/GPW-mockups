@@ -16,28 +16,46 @@ html, body {
   inset: 0;
 }
 
-/* ── Logo ────────────────────────────────────────────── */
+/* ── Top bar ─────────────────────────────────────────── */
 
-#logo-placeholder {
-  width: 48px;
-  height: 48px;
-  background: #1976d2;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .08em;
+#top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 35;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  padding: 0 14px;
+  gap: 10px;
   user-select: none;
+}
+
+#app-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #212121;
+  letter-spacing: .01em;
+}
+
+#beta-badge {
+  background: #1976d2;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 2px 7px;
+  border-radius: 10px;
 }
 
 /* ── Region selector ─────────────────────────────────── */
 
 #bc-control {
   position: fixed;
-  top: 8px;
+  top: 44px;
   left: 56px;
   z-index: 30;
   display: flex;
@@ -187,7 +205,7 @@ html, body {
 
 #year-bar {
   position: fixed;
-  top: 57px;
+  top: 93px;
   left: 56px;
   width: 315px;
   z-index: 20;
@@ -249,13 +267,13 @@ html, body {
 .panel-content--image img { width: 100%; display: block; }
 
 #panel-left,
-#panel-bottom { top: 91px; left: 56px; }
+#panel-bottom { top: 127px; left: 56px; }
 
 /* ── Left sidebar ────────────────────────────────────── */
 
 #sidebar {
   position: fixed;
-  top: 0;
+  top: 36px;
   left: 0;
   bottom: 0;
   width: 48px;
@@ -265,7 +283,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 8px;
+  padding-top: 4px;
   gap: 4px;
 }
 
