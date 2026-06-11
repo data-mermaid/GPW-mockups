@@ -15,142 +15,204 @@
       background: #fafafa;
     }
 
-    /* ── Header ── */
+    /* ── Top bar (matches map) ── */
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    #top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 36px;
       background: #fff;
       border-bottom: 1px solid #e0e0e0;
+      z-index: 35;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      height: 52px;
+      padding: 0 14px;
+      gap: 10px;
+      user-select: none;
     }
 
-    .logo {
-      font-size: 16px;
+    #app-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #212121;
+      letter-spacing: .01em;
+    }
+
+    #beta-badge {
+      background: #1976d2;
+      color: #fff;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: .08em;
-      color: #1976d2;
+      padding: 2px 7px;
+      border-radius: 10px;
     }
 
-    .back-btn {
-      display: inline-flex;
+    #top-bar-actions {
+      margin-left: auto;
+      display: flex;
       align-items: center;
       gap: 4px;
-      padding: 6px 14px;
+    }
+
+    .top-bar-link {
+      font-size: 13px;
+      color: #555;
+      text-decoration: none;
+      padding: 0 8px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .top-bar-link:hover { color: #1976d2; background: #f5f5f5; }
+    .top-bar-link.active { color: #1976d2; font-weight: 500; }
+
+    #hamburger-top { display: none; }
+
+    /* ── Sidebar ── */
+
+    #sidebar {
+      position: fixed;
+      top: 36px; left: 0; bottom: 0;
+      width: 200px;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #back-to-map {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
       background: #1976d2;
       color: #fff;
       text-decoration: none;
-      border-radius: 4px;
       font-size: 13px;
       font-weight: 500;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
+    #back-to-map:hover { background: #1565c0; }
+    #back-to-map .material-icons { font-size: 18px; flex-shrink: 0; }
 
-    .back-btn:hover { background: #1565c0; }
+    /* ── Page nav inside sidebar ── */
 
-    /* ── Page layout ── */
-
-    .page {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      max-width: 1060px;
-      margin: 0 auto;
-    }
-
-    /* ── Sidebar nav ── */
-
-    nav {
-      position: sticky;
-      top: 52px;
-      height: calc(100vh - 52px);
+    #page-nav {
+      flex: 1;
       overflow-y: auto;
-      padding: 32px 0;
-      border-right: 1px solid #e0e0e0;
+      padding: 8px 0;
     }
 
-    nav ul { list-style: none; }
-
-    nav a {
+    .nav-page-title {
       display: block;
-      padding: 8px 20px 8px 24px;
-      font-size: 14px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1976d2;
+      background: #e3f2fd;
+      border-left: 3px solid #1976d2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #page-nav ul { list-style: none; }
+
+    #page-nav a {
+      display: block;
+      padding: 7px 16px 7px 20px;
+      font-size: 13px;
       color: #555;
       text-decoration: none;
       border-left: 3px solid transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #page-nav a:hover { color: #1976d2; background: #f5f5f5; border-left-color: #90caf9; }
+    #page-nav a.active { color: #1976d2; font-weight: 500; border-left-color: #1976d2; background: #e3f2fd; }
+
+    /* ── Sidebar footer ── */
+
+    #sidebar-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 12px;
     }
 
-    nav a:hover {
-      color: #1976d2;
-      background: #e3f2fd;
-      border-left-color: #90caf9;
+    .sidebar-icon-btn {
+      width: 36px; height: 36px;
+      border: none; border-radius: 4px;
+      background: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #555;
     }
+    .sidebar-icon-btn:hover { background: #e3f2fd; color: #1976d2; }
+    .sidebar-icon-btn .material-icons { font-size: 20px; }
 
-    nav a.active {
-      color: #1976d2;
-      font-weight: 500;
-      border-left-color: #1976d2;
-      background: #e3f2fd;
+    /* Nav toggle — desktop hidden */
+    #nav-toggle { display: none; }
+
+    /* ── Hamburger dropdown ── */
+
+    #nav-dropdown {
+      display: none;
+      position: fixed;
+      right: 8px;
+      top: 36px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+      list-style: none;
+      min-width: 180px;
+      overflow: hidden;
+      z-index: 30;
     }
+    #nav-dropdown.open { display: block; }
+    #nav-dropdown li a {
+      display: block;
+      padding: 10px 16px;
+      font-size: 14px;
+      color: #333;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    #nav-dropdown li a:hover { background: #e3f2fd; color: #1976d2; }
 
     /* ── Main content ── */
 
     main {
+      margin-left: 200px;
+      margin-top: 36px;
       padding: 48px 52px 80px;
       min-width: 0;
     }
 
-    .page-title {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .subtitle {
-      font-size: 15px;
-      color: #757575;
-      margin-bottom: 48px;
-    }
+    .page-title { font-size: 26px; font-weight: 600; margin-bottom: 6px; }
+    .subtitle { font-size: 15px; color: #757575; margin-bottom: 48px; }
 
     section { margin-bottom: 52px; }
 
     h2 {
-      font-size: 19px;
-      font-weight: 600;
-      margin-bottom: 14px;
-      padding-bottom: 8px;
+      font-size: 19px; font-weight: 600;
+      margin-bottom: 14px; padding-bottom: 8px;
       border-bottom: 1px solid #e0e0e0;
       color: #212121;
     }
 
-    h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin: 22px 0 8px;
-      color: #424242;
-    }
+    h3 { font-size: 15px; font-weight: 600; margin: 22px 0 8px; color: #424242; }
 
-    p {
-      line-height: 1.75;
-      color: #424242;
-      margin-bottom: 14px;
-      max-width: 68ch;
-    }
+    p { line-height: 1.75; color: #424242; margin-bottom: 14px; max-width: 68ch; }
 
-    ul, ol {
-      padding-left: 24px;
-      margin-bottom: 14px;
-    }
-
-    li {
-      line-height: 1.75;
-      color: #424242;
-      margin-bottom: 3px;
-      max-width: 68ch;
-    }
+    ul, ol { padding-left: 24px; margin-bottom: 14px; }
+    li { line-height: 1.75; color: #424242; margin-bottom: 3px; max-width: 68ch; }
 
     a { color: #1976d2; text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -158,54 +220,69 @@
     /* ── Mobile ── */
 
     @media (max-width: 640px) {
-      .page {
-        grid-template-columns: 1fr;
+      .top-bar-link { display: none; }
+      #hamburger-top { display: flex; }
+
+      #sidebar {
+        width: 48px;
+        transition: width .22s ease;
+        overflow: hidden;
+        box-shadow: none;
       }
 
-      nav {
-        position: static;
-        height: auto;
-        overflow-x: auto;
-        overflow-y: hidden;
-        border-right: none;
-        border-bottom: 1px solid #e0e0e0;
-        padding: 0;
+      #sidebar.nav-open {
+        width: 240px;
+        box-shadow: 2px 0 12px rgba(0,0,0,.15);
       }
 
-      nav ul {
-        display: flex;
-        white-space: nowrap;
+      #back-to-map {
+        padding: 10px;
+        justify-content: center;
       }
+      #back-to-map .btn-label { display: none; }
+  #sidebar.nav-open #back-to-map .btn-label { display: inline; }
 
-      nav a {
-        border-left: none;
-        border-bottom: 3px solid transparent;
-        padding: 12px 16px;
-      }
+      #nav-toggle { display: flex; }
 
-      nav a:hover,
-      nav a.active {
-        border-left-color: transparent;
-        border-bottom-color: #1976d2;
-      }
+      #page-nav { display: none; }
+      #sidebar.nav-open #page-nav { display: block; }
 
       main {
-        padding: 28px 20px 56px;
+        margin-left: 48px;
+        padding: 28px 16px 80px;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <span class="logo">GPW</span>
-    <a class="back-btn" href="../">&#8592; Back to map</a>
-  </header>
+  <!-- Top bar -->
+  <div id="top-bar">
+    <span id="app-title">Global Pollution Watch</span>
+    <span id="beta-badge">BETA</span>
+    <div id="top-bar-actions">
+      <a href="../" class="top-bar-link">Back to map</a>
+      <a href="../science-and-methods/" class="top-bar-link active">Science &amp; methods</a>
+      <a href="#" class="top-bar-link">Contact</a>
+      <button class="sidebar-icon-btn" id="hamburger-top" aria-expanded="false">
+        <span class="material-icons">menu</span>
+      </button>
+    </div>
+  </div>
 
-  <div class="page">
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <a href="../" id="back-to-map">
+      <span class="material-icons">map</span>
+      <span class="btn-label">Back to map</span>
+    </a>
 
-    <nav aria-label="Page sections">
-      <ul>
+    <button class="sidebar-icon-btn" id="nav-toggle" aria-expanded="false" aria-controls="page-nav">
+      <span class="material-icons">toc</span>
+    </button>
+
+    <nav id="page-nav" aria-label="Page sections">
+<ul>
         <li><a href="#overview">Overview</a></li>
         <li><a href="#data-sources">Data Sources</a></li>
         <li><a href="#spatial-resolution">Spatial Resolution</a></li>
@@ -216,97 +293,143 @@
       </ul>
     </nav>
 
-    <main>
-
-      <h1 class="page-title">Science &amp; Methods</h1>
-      <p class="subtitle">How we collect, process, and present population and coral reef exposure data.</p>
-
-      <section id="overview">
-        <h2>Overview</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-      </section>
-
-      <section id="data-sources">
-        <h2>Data Sources</h2>
-        <p>The population data used in this platform is derived from the following authoritative sources:</p>
-        <ul>
-          <li><a href="#">Global Human Settlement Layer (GHSL)</a> — European Commission Joint Research Centre</li>
-          <li><a href="#">WorldPop</a> — University of Southampton</li>
-          <li><a href="#">LandScan</a> — Oak Ridge National Laboratory</li>
-          <li><a href="#">GPWv4</a> — NASA Socioeconomic Data and Applications Center (SEDAC)</li>
-          <li>National census data from participating governments, harmonised to 2000–2025</li>
-        </ul>
-        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
-      </section>
-
-      <section id="spatial-resolution">
-        <h2>Spatial Resolution</h2>
-        <p>All raster products are provided at <strong>30 arc-second (~1 km)</strong> spatial resolution at the equator. Watershed summaries are computed at the HydroSHEDS level-4 basin delineation. Administrative boundaries follow the <a href="#">GADM 4.1</a> dataset.</p>
-        <h3>Temporal Coverage</h3>
-        <ul>
-          <li>2000 — baseline census year</li>
-          <li>2005 — interpolated estimate</li>
-          <li>2015 — interpolated estimate</li>
-          <li>2020 — most recent census anchor</li>
-          <li>2025 — modelled projection</li>
-        </ul>
-        <p>Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc.</p>
-      </section>
-
-      <section id="methodology">
-        <h2>Methodology</h2>
-        <p>Population counts are disaggregated from administrative units to grid cells using a dasymetric mapping approach. Land cover data from <a href="#">ESA CCI Land Cover</a> is used as ancillary information to restrict settlement areas. Uninhabited pixels (open water, bare rock, permanent ice) are masked prior to redistribution.</p>
-        <p>Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut convallis velit enim et pede.</p>
-        <h3>Uncertainty Estimation</h3>
-        <p>Pixel-level uncertainty is quantified using a Monte Carlo framework with 1 000 iterations. The inter-quartile range of the resulting distribution is reported as the uncertainty band for each grid cell and aggregated region. For further detail see:</p>
-        <ul>
-          <li><a href="#">Stevens et al. (2015)</a> — Disaggregating census data for population mapping using multiple imputation</li>
-          <li><a href="#">Wardrop et al. (2018)</a> — Spatially disaggregated population estimates in the absence of national population and housing census data</li>
-          <li><a href="#">Leyk et al. (2019)</a> — The spatial allocation of population: a review of large-scale gridded population data products and their fitness for use</li>
-        </ul>
-      </section>
-
-      <section id="coral-reef-regions">
-        <h2>Coral Reef Regions</h2>
-        <p>Reef boundaries are derived from the <a href="#">UNEP-WCMC Global Coral Reef Monitoring Network</a> dataset, version 4.1. The five biogeographic regions follow the classification of <a href="#">Spalding et al. (2007)</a> — Marine Ecoregions of the World. Watershed intersections are computed using the <a href="#">HydroSHEDS</a> river basin layer at Pfafstetter level 4.</p>
-        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, ex quam pharetra erat, quis venenatis diam eros in risus. Proin feugiat, leo vel commodo feugiat, pede lacus egestas ligula, eu lacinia pede nisi at lorem.</p>
-      </section>
-
-      <section id="validation">
-        <h2>Validation</h2>
-        <p>Modelled population surfaces are validated against independent household survey data from the <a href="#">DHS Program</a> and national population registers where available. Root-mean-square error (RMSE) and mean absolute error (MAE) are reported per region and time step in the supplementary materials.</p>
-        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, ex quam pharetra erat, quis venenatis diam eros in risus. Proin feugiat, leo vel commodo feugiat, pede lacus egestas ligula, eu lacinia pede nisi at lorem.</p>
-      </section>
-
-      <section id="citing">
-        <h2>Citing This Platform</h2>
-        <p>When using data or maps from this platform in publications, please cite:</p>
-        <ul>
-          <li>Global Population Watch (2025). <em>Population and Coral Reef Exposure Data Platform</em>, version 3.0. Available at: <a href="#">https://gpw.example.org</a></li>
-          <li>The relevant source dataset citation (see Data Sources above)</li>
-        </ul>
-        <p>For questions or collaboration enquiries, please use the <a href="#">Contact</a> page.</p>
-      </section>
-
-    </main>
   </div>
 
-  <script>
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('nav a');
+  <!-- Hamburger dropdown -->
+  <ul id="nav-dropdown">
+    <li><a href="../">Back to map</a></li>
+    <li><a href="../science-and-methods/">Science and methods</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
 
+  <!-- Main content -->
+  <main>
+
+    <h1 class="page-title">Science &amp; Methods</h1>
+    <p class="subtitle">How we collect, process, and present population and coral reef exposure data.</p>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+    </section>
+
+    <section id="data-sources">
+      <h2>Data Sources</h2>
+      <p>The population data used in this platform is derived from the following authoritative sources:</p>
+      <ul>
+        <li><a href="#">Global Human Settlement Layer (GHSL)</a> — European Commission Joint Research Centre</li>
+        <li><a href="#">WorldPop</a> — University of Southampton</li>
+        <li><a href="#">LandScan</a> — Oak Ridge National Laboratory</li>
+        <li><a href="#">GPWv4</a> — NASA Socioeconomic Data and Applications Center (SEDAC)</li>
+        <li>National census data from participating governments, harmonised to 2000–2025</li>
+      </ul>
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
+    </section>
+
+    <section id="spatial-resolution">
+      <h2>Spatial Resolution</h2>
+      <p>All raster products are provided at <strong>30 arc-second (~1 km)</strong> spatial resolution at the equator. Watershed summaries are computed at the HydroSHEDS level-4 basin delineation. Administrative boundaries follow the <a href="#">GADM 4.1</a> dataset.</p>
+      <h3>Temporal Coverage</h3>
+      <ul>
+        <li>2000 — baseline census year</li>
+        <li>2005 — interpolated estimate</li>
+        <li>2015 — interpolated estimate</li>
+        <li>2020 — most recent census anchor</li>
+        <li>2025 — modelled projection</li>
+      </ul>
+      <p>Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc.</p>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <p>Population counts are disaggregated from administrative units to grid cells using a dasymetric mapping approach. Land cover data from <a href="#">ESA CCI Land Cover</a> is used as ancillary information to restrict settlement areas. Uninhabited pixels (open water, bare rock, permanent ice) are masked prior to redistribution.</p>
+      <p>Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut convallis velit enim et pede.</p>
+      <h3>Uncertainty Estimation</h3>
+      <p>Pixel-level uncertainty is quantified using a Monte Carlo framework with 1 000 iterations. The inter-quartile range of the resulting distribution is reported as the uncertainty band for each grid cell and aggregated region. For further detail see:</p>
+      <ul>
+        <li><a href="#">Stevens et al. (2015)</a> — Disaggregating census data for population mapping using multiple imputation</li>
+        <li><a href="#">Wardrop et al. (2018)</a> — Spatially disaggregated population estimates in the absence of national population and housing census data</li>
+        <li><a href="#">Leyk et al. (2019)</a> — The spatial allocation of population: a review of large-scale gridded population data products and their fitness for use</li>
+      </ul>
+    </section>
+
+    <section id="coral-reef-regions">
+      <h2>Coral Reef Regions</h2>
+      <p>Reef boundaries are derived from the <a href="#">UNEP-WCMC Global Coral Reef Monitoring Network</a> dataset, version 4.1. The five biogeographic regions follow the classification of <a href="#">Spalding et al. (2007)</a> — Marine Ecoregions of the World. Watershed intersections are computed using the <a href="#">HydroSHEDS</a> river basin layer at Pfafstetter level 4.</p>
+      <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, ex quam pharetra erat, quis venenatis diam eros in risus. Proin feugiat, leo vel commodo feugiat, pede lacus egestas ligula, eu lacinia pede nisi at lorem.</p>
+    </section>
+
+    <section id="validation">
+      <h2>Validation</h2>
+      <p>Modelled population surfaces are validated against independent household survey data from the <a href="#">DHS Program</a> and national population registers where available. Root-mean-square error (RMSE) and mean absolute error (MAE) are reported per region and time step in the supplementary materials.</p>
+      <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, ex quam pharetra erat, quis venenatis diam eros in risus. Proin feugiat, leo vel commodo feugiat, pede lacus egestas ligula, eu lacinia pede nisi at lorem.</p>
+    </section>
+
+    <section id="citing">
+      <h2>Citing This Platform</h2>
+      <p>When using data or maps from this platform in publications, please cite:</p>
+      <ul>
+        <li>Global Population Watch (2025). <em>Population and Coral Reef Exposure Data Platform</em>, version 3.0. Available at: <a href="#">https://gpw.example.org</a></li>
+        <li>The relevant source dataset citation (see Data Sources above)</li>
+      </ul>
+      <p>For questions or collaboration enquiries, please use the <a href="#">Contact</a> page.</p>
+    </section>
+
+  </main>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <script>
+    const sections  = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('#page-nav a');
+    const sidebar   = document.getElementById('sidebar');
+    const navToggle = document.getElementById('nav-toggle');
+    const hamburger = document.getElementById('hamburger-top');
+    const navDropdown = document.getElementById('nav-dropdown');
+
+    // Active section highlighting
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           navLinks.forEach(a => a.classList.remove('active'));
-          const link = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+          const link = document.querySelector(`#page-nav a[href="#${entry.target.id}"]`);
           if (link) link.classList.add('active');
         }
       });
     }, { rootMargin: '-10% 0px -75% 0px' });
 
     sections.forEach(s => observer.observe(s));
+
+    // Mobile nav toggle
+    navToggle.addEventListener('click', () => {
+      const open = sidebar.classList.toggle('nav-open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
+
+    navLinks.forEach(a => a.addEventListener('click', () => {
+      sidebar.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', false);
+    }));
+
+    // Hamburger menu
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navDropdown.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navDropdown.contains(e.target)) {
+        navDropdown.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+      }
+      if (!sidebar.contains(e.target)) {
+        sidebar.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded', false);
+      }
+    });
   </script>
 
 </body>
